@@ -42,12 +42,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\ManagerBase.cs" />
+    <Compile Include="ContentManager.cs" />
+    <Compile Include="CustomerEmployeeManager.cs" />
     <Compile Include="CustomerManager.cs" />
+    <Compile Include="DepartmantManager.cs" />
     <Compile Include="EmployeeManager.cs" />
     <Compile Include="ProcessManager.cs" />
     <Compile Include="ProjectManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserManager.cs" />
+    <Compile Include="TitleManager.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

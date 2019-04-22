@@ -9,16 +9,17 @@ using System.Threading.Tasks;
 
 namespace StartProject.Entity
 {
-    [Table("Authorities")]
-    public class Authority:BaseEntity
+    public class Departmant
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-        [DisplayName("İsim"), 
-  StringLength(25, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
+        [DisplayName("DepartmanAdı"), Column("name"),
+            StringLength(50, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
         public string name { get; set; }
+        [DisplayName("Açıklama"), Column("description"),
+          StringLength(50, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
+        public string description { get; set; }
 
-        public int userId { get; set; }
-        public User User { get; set; }
+        public List<Employee> Employee { get; set; }
     }
 }

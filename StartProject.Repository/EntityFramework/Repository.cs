@@ -59,9 +59,11 @@ namespace StartProject.Repository.EntityFramework
                 o.updatedAt = DateTime.Now;
                 //o.updatedBy = App.Common.GetCurrentUsername();
             }
-
+          
             return Save();
         }
+
+     
 
         public int Delete(T obj)
         {

@@ -13,24 +13,35 @@ namespace StartProject.Entity
     public class Customer:BaseEntity
     {
         
-        [ForeignKey("User")]
+       [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
+        [DisplayName("Firma ismi"), Column("company_name"),
+            StringLength(25, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
+        public string name { get; set; }
+
+        [DisplayName("E-Posta"),
+            Required(ErrorMessage = "{0} alanı gereklidir."),
+            StringLength(70, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
+        public string email { get; set; }
+
         [DisplayName("Yetkili"), 
-    StringLength(50, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
+            StringLength(50, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
         public string competnent { get; set; }
         [DisplayName("Url"),
-   StringLength(50, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
+            StringLength(50, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
         public string url { get; set; }
         [DisplayName("Açıklama"),
- StringLength(500, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
+            StringLength(500, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
         public string description { get; set; }
 
 
-        public User User { get; set; }
-        //public int employeeId { get; set; }
+
+
+
         public Employee Employee { get; set; }
 
+        public List<CustomerEmployee> CustomerEmployees { get; set; }
         public List<Project> Projects { get; set; }
     }
 }

@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace StartProject.Entity
 {
-    [Table("Users")]
-    public class User:BaseEntity
+    [Table("CustomerEmployees")]
+    public class CustomerEmployee:BaseEntity
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
@@ -22,12 +22,7 @@ namespace StartProject.Entity
         [DisplayName("Soyad"), Column("last_name"),
             StringLength(25, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
         public string surname { get; set; }
-
-        [DisplayName("Kullanıcı Adı"), Column("user_name"),
-            Required(ErrorMessage = "{0} alanı gereklidir."),
-            StringLength(25, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
-        public string username { get; set; }
-
+        
         [DisplayName("E-Posta"),
             Required(ErrorMessage = "{0} alanı gereklidir."),
             StringLength(70, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
@@ -38,22 +33,15 @@ namespace StartProject.Entity
             StringLength(25, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
         public string password { get; set; }
 
+        [DisplayName("Tel"),
+            Required(ErrorMessage = "{0} alanı gereklidir."),
+            StringLength(11, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
+        public string phone { get; set; }
+
         [StringLength(30), ScaffoldColumn(false)]
         public string profileImageFilename { get; set; }
 
-        [DisplayName("Aktif")]
-        public bool isActive { get; set; }
 
-
-        [Required, ScaffoldColumn(false)]
-        public Guid ActivateGuid { get; set; }
-
-    
-
-
-        public Employee Employee { get; set; }
         public Customer Customer { get; set; }
-        public List<Authority> Authorities { get; set; }
-
     }
 }

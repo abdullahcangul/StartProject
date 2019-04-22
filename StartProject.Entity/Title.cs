@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace StartProject.Entity
 {
     [Table("Titles")]
-    public class Title:BaseEntity
+    public class Title
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
@@ -22,7 +22,8 @@ namespace StartProject.Entity
 StringLength(25, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
         public string description { get; set; }
 
-        //public int EmployeeId { get; set; }
-        public Employee Employee { get; set; }
+        
+        
+        public List<Employee> Employees { get; set; }
     }
 }

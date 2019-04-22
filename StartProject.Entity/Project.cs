@@ -21,15 +21,11 @@ StringLength(50, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
         [DisplayName("Açiklama"),
 StringLength(500, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
         public string description { get; set; }
-
+      
         
-        [Column("project_managerId")]
-        public int projectManagerId { get; set; }
-
-        //public int employeeId { get; set; }
-        public Employee Employee { get; set; }
         public List<Process> Processes { get; set; }
-       // public int customerId { get; set; }
+       
         public Customer Customer { get; set; }
+        public Employee Employee { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -11,15 +12,43 @@ namespace StartProject.Entity
     [Table("Employees")]
     public class Employee:BaseEntity
     {
-        
-        [ForeignKey("User")]
+
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
+        [DisplayName("İsim"), Column("first_name"),
+    StringLength(25, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
+        public string name { get; set; }
 
-        public int titleId { get; set; }
+        [DisplayName("Soyad"), Column("last_name"),
+            StringLength(25, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
+        public string surname { get; set; }
 
-        public User User { get; set; }
-        public List<Title> Titles { get; set; }
+
+
+        [DisplayName("E-Posta"),
+            Required(ErrorMessage = "{0} alanı gereklidir."),
+            StringLength(70, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
+        public string email { get; set; }
+
+        [DisplayName("Şifre"),
+            Required(ErrorMessage = "{0} alanı gereklidir."),
+            StringLength(25, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
+        public string password { get; set; }
+
+        [StringLength(30), ScaffoldColumn(false)]
+        public string profileImageFilename { get; set; }
+
+        [ ScaffoldColumn(false)]
+        public bool isActive { get; set; }
+
+        [ ScaffoldColumn(false)]
+        public Guid activateGuid { get; set; }
+
+
+
+        public Departmant Departmant { get; set; }
+        public Title Title { get; set; }
         public List<Customer> Customers { get; set; }
         public List<Project> Projects { get; set; }
         public List<Process> Processes { get; set; }

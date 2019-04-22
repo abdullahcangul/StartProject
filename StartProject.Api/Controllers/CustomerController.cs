@@ -16,6 +16,7 @@ namespace StartProject.Api.Controllers
         public IHttpActionResult GetCustomers()
         {
             List<Customer> customers = customerManager.List();
+           
 
             if (customers.Count>0)
             {
@@ -46,19 +47,21 @@ namespace StartProject.Api.Controllers
             return CreatedAtRoute("DefaultApi", new { id = customer.ID }, customer);
         }
 
-        public IHttpActionResult PutCustomer(int id, Customer customer)
+        public IHttpActionResult PutCustomer( Customer customer)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            if (id != customer.ID)
-            {
-                return BadRequest();
-            }
-
-            customerManager.Update(customer);
+            Customer customer2=customerManager.Find(x => x.ID == customer.ID);
+            customer2.name = customer.name;
+            customer2.url = customer.url;
+            customer2.email = customer.email;
+            customer2.description = customer.description;
+            customer2.competnent = customer.competnent;
+            
+           
+            customerManager.Update(customer2);
 
             return Ok();
         }

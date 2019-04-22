@@ -15,111 +15,146 @@ namespace StartProject.Repository.EntityFramework
             Random random = new Random();
             //Adding  authoritys..
 
-         
+            for (int i = 0; i < 3; i++)
+            {
+                Departmant departmant = new Departmant()
+                {
+                    name = FakeData.NameData.GetCompanyName(),
+                    description = FakeData.TextData.GetAlphabetical(10),
 
+                };
+                context.Departmants.Add(departmant);
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                Title title = new Title()
+                {
+                    name = "standart",
+                    description = FakeData.TextData.GetAlphabetical(10),
+
+                };
+                context.Titles.Add(title);
+            }
+
+            context.SaveChanges();
             // Adding admin user..
-            User admin = new User()
+            Employee admin = new Employee()
             {
                 name = "Abullah",
                 surname = "Cangul",
                 email = "abdullahcangul@gmail.com",
-                ActivateGuid = Guid.NewGuid(),
+                activateGuid = Guid.NewGuid(),
                 isActive = true,
-                username = "abdullahcangul",
                 profileImageFilename = "user_boy.png",
                 password = "123456",
                 createdAt = DateTime.Now,
                 updatedAt = DateTime.Now.AddMinutes(5),
                 updatedBy = "erdi yalçın",
                 createdBy = "erdem siyam",
-                Authorities = context.Authorities.Where(x=>x.name== "admin").ToList()
+                Departmant = context.Departmants.ToList()[1],
+                Title=context.Titles.ToList()[1]
                 
             };
 
             // Adding standart user..
-            User standartUser = new User()
+            Employee standartUser = new Employee()
             {
                 name = "Hamza",
                 surname = "Taş",
                 email = "hamzatas@gmail.com",
-                ActivateGuid = Guid.NewGuid(),
+                activateGuid = Guid.NewGuid(),
                 isActive = true,
-                username = "hamzatas",
                 profileImageFilename = "user_boy.png",
                 password = "123456",
                 createdAt = DateTime.Now,
                 updatedAt = DateTime.Now.AddMinutes(5),
                 updatedBy = "erdem siyam",
                 createdBy = "erdem siyam",
-                Authorities = context.Authorities.Where(x => x.name == "standart").ToList()
+                Departmant = context.Departmants.ToList()[2],
+                Title = context.Titles.ToList()[2]
 
             };
-            context.Users.Add(admin);
-            context.Users.Add(standartUser);
+            context.Employees.Add(admin);
+            context.Employees.Add(standartUser);
             //adding 8 user
             for (int i = 0; i < 8; i++)
             {
-                User user = new User()
+                Employee user = new Employee()
                 {
                     name = FakeData.NameData.GetFirstName(),
                     surname = FakeData.NameData.GetSurname(),
                     email = FakeData.NetworkData.GetEmail(),
                     profileImageFilename = "user_boy.png",
-                    ActivateGuid = Guid.NewGuid(),
+                    activateGuid = Guid.NewGuid(),
                     isActive = true,
-                    username = $"user{i}",
                     password = "123",
                     createdAt = FakeData.DateTimeData.GetDatetime(DateTime.Now.AddYears(-1), DateTime.Now),
                     updatedAt = FakeData.DateTimeData.GetDatetime(DateTime.Now.AddYears(-1), DateTime.Now),
                     createdBy = $"user{i}",
-                    Authorities = context.Authorities.Take(random.Next(1, 4)).ToList(),
-                     
+                    Departmant = context.Departmants.ToList()[random.Next(1, 3)],
+                    Title = context.Titles.ToList()[random.Next(1, 3)]
+                    
+
                 };
 
-                context.Users.Add(user);
+                context.Employees.Add(user);
             }
             context.SaveChanges();
 
-            List<Authority> authoritys = new List<Authority>()
-            {
-                { new Authority(){ name="admin" ,User= context.Users.ToList()[1],} },
-                { new Authority(){ name="employe",User= context.Users.ToList()[2] } },
-                { new Authority(){ name="musteri" ,User= context.Users.ToList()[3]} },
-                { new Authority(){ name="standart",User= context.Users.ToList()[4] } },
-            };
-            context.Authorities.AddRange(authoritys);
-            context.SaveChanges();
+            //List<Authority> authoritys = new List<Authority>()
+            //{
+            //    { new Authority(){ name="admin" ,User= context.Users.ToList()[1],} },
+            //    { new Authority(){ name="employe",User= context.Users.ToList()[2] } },
+            //    { new Authority(){ name="musteri" ,User= context.Users.ToList()[3]} },
+            //    { new Authority(){ name="standart",User= context.Users.ToList()[4] } },
+            //};
+            //context.Authorities.AddRange(authoritys);
+            //context.SaveChanges();
 
-            //adding employee
+            //adding Customer
             for (int i = 0; i < 3; i++)
             {
-                Employee employee = new Employee()
+
+                CustomerEmployee customerEmployee = new CustomerEmployee()
                 {
-                    User =context.Users.ToList()[i+4],
-                };
-                Customer customer = new Customer()
-                {
-                    competnent = "süper",
-                    description = FakeData.TextData.GetSentences(FakeData.NumberData.GetNumber(5, 10)),
-                    url=FakeData.NetworkData.GetDomain(),
-                    User = context.Users.ToList()[i],
+                    name = FakeData.NameData.GetFirstName(),
+                    email = FakeData.NetworkData.GetEmail(),
+                    surname = FakeData.NameData.GetSurname(),
+                    phone = "05423310317",
+                    password="12345",
                 };
 
-            context.Employees.Add(employee);
+                context.CustomerEmployees.Add(customerEmployee);
+            }
+            context.SaveChanges();
+            //adding Customer
+            for (int i = 0; i < 3; i++)
+            {
+               
+                Customer customer = new Customer()
+                {
+                    name = FakeData.NameData.GetFirstName(),
+                    email = FakeData.NetworkData.GetEmail(),
+                    competnent = "süper",
+                    description = FakeData.TextData.GetSentences(FakeData.NumberData.GetNumber(5, 7)),
+                    url=FakeData.NetworkData.GetDomain(),
+                    Employee = context.Employees.ToList()[i],
+                    CustomerEmployees=context.CustomerEmployees.ToList()
+
+                };
+                
             context.Customers.Add(customer);
             }
-            
-            Employee employeeAdmin = new Employee()
-            {
-                User = context.Users.SingleOrDefault(x=>x.email== "abdullahcangul@gmail.com"),
-            };
-            context.Employees.Add(employeeAdmin);
+
+
             Customer customerStandart = new Customer()
             {
                 competnent = "hiper",
                 description = FakeData.TextData.GetSentences(FakeData.NumberData.GetNumber(5, 5)),
                 url = FakeData.NetworkData.GetDomain(),
-                User = context.Users.SingleOrDefault(x=>x.email== "hamzatas@gmail.com"),
+                email = FakeData.NetworkData.GetEmail(),
+                
+                Employee = context.Employees.SingleOrDefault(x=>x.email== "hamzatas@gmail.com"),
             };
             context.Customers.Add(customerStandart);
             context.SaveChanges();
@@ -131,7 +166,7 @@ namespace StartProject.Repository.EntityFramework
                 {
                     Customer = context.Customers.ToList()[i],
                     Employee = context.Employees.ToList()[i],
-                    description = FakeData.TextData.GetSentences(FakeData.NumberData.GetNumber(5, 10)),
+                    description = FakeData.TextData.GetSentences(FakeData.NumberData.GetNumber(5, 7)),
                     name = FakeData.NameData.GetFirstName(),
                 };
               
@@ -159,7 +194,7 @@ namespace StartProject.Repository.EntityFramework
             {
                 Process process = new Process()
                 {
-
+                   
                     Employee = context.Employees.ToList()[i+1],
                     Project = context.Projects.ToList()[i+1],
                     Contents=context.Contents.ToList(),

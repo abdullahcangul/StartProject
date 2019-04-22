@@ -14,14 +14,14 @@ namespace StartProject.Repository.EntityFramework
         {
             Database.SetInitializer(new MyInitializer());
         }
-        public DbSet<User> Users { get; set; }
         public DbSet<Title> Titles { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Process> Processes { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Content> Contents { get; set; }
-        public DbSet<Authority> Authorities { get; set; }
+        public DbSet<Departmant> Departmants { get; set; }
+        public DbSet<CustomerEmployee> CustomerEmployees { get; set; }
 
     }
 }

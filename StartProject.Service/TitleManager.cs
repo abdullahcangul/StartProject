@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StartProject.Service
 {
-    public class UserManager: ManagerBase<User>
+    public class TitleManager:ManagerBase<Title>
     {
     }
 }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.ModelBinding;
 
 namespace StartProject.Api.Controllers
 {
@@ -46,22 +47,32 @@ namespace StartProject.Api.Controllers
             return CreatedAtRoute("DefaultApi", new { id = employee.ID }, employee);
         }
 
-        public IHttpActionResult PutEmployee(int id, Employee employee)
+        public IHttpActionResult PutEmployee(Employee employee)
         {
+            ModelState.Remove("createdAt");
+            ModelState.Remove("createdBy");
+            ModelState.Remove("updatedAt");
+            ModelState.Remove("updatedBy");
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            
+                Employee employee2 = employeeManager.Find(x => x.ID == employee.ID);
+                employee2.name = employee.name;
+                employee2.email = employee.email;
+                employee2.isActive = employee.isActive;
+                employee2.surname = employee.surname;
+                employee2.password = employee.password;
 
-            if (id != employee.ID)
-            {
-                return BadRequest();
-            }
-
-            employeeManager.Update(employee);
-
-            return Ok();
+                employeeManager.Update(employee);
+                return Ok(employee);
+           
+            
         }
+
+       
 
         public IHttpActionResult DeleteEmployee(int id)
         {
