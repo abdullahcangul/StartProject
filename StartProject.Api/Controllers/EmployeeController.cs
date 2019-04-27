@@ -15,11 +15,23 @@ namespace StartProject.Api.Controllers
     {
         private EmployeeManager employeeManager = new EmployeeManager();
 
+        //Tüm employeeleri getirir
         public IHttpActionResult GetEmployee()
         {
             List<Employee> employee = employeeManager.List();
 
             if (employee.Count > 0)
+            {
+                return Ok(employee);
+            }
+            return NotFound();
+        }
+
+        public IHttpActionResult PostLogin(String email,String password)
+        {
+            Employee employee = employeeManager.Find(e => e.email == email && e.password == password);
+
+            if (employee != null)
             {
                 return Ok(employee);
             }
