@@ -12,8 +12,8 @@ namespace StartProject.Api.Controllers
     public class ContentController : ApiController
     {
         private ContentManager manager = new ContentManager();
-
-        public IHttpActionResult GetProject()
+      
+        public  IHttpActionResult Get()
         {
             List<Content> _object = manager.List();
 
@@ -24,7 +24,7 @@ namespace StartProject.Api.Controllers
             return NotFound();
         }
 
-        public IHttpActionResult GetProject(int id)
+        public IHttpActionResult Get(int id)
         {
             Content _object = manager.Find(x => x.ID == id);
             if (_object != null)

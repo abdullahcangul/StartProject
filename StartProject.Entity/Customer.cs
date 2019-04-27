@@ -12,6 +12,11 @@ namespace StartProject.Entity
     [Table("Customers")]
     public class Customer:BaseEntity
     {
+        public Customer()
+        {
+            CustomerEmployees = new List<CustomerEmployee>();
+            Projects = new List<Project>();
+        }
         
        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
@@ -36,12 +41,11 @@ namespace StartProject.Entity
         public string description { get; set; }
 
 
+        
+        public int? EmployeeID { get; set; }
+        public  Employee Employee { get; set; }
 
-
-
-        public Employee Employee { get; set; }
-
-        public List<CustomerEmployee> CustomerEmployees { get; set; }
-        public List<Project> Projects { get; set; }
+        public  List<CustomerEmployee> CustomerEmployees { get; set; }
+        public  List<Project> Projects { get; set; }
     }
 }

@@ -11,6 +11,10 @@ namespace StartProject.Entity
 {
     public class Departmant
     {
+        public Departmant()
+        {
+            Employee = new List<Employee>();
+        }
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         [DisplayName("DepartmanAdı"), Column("name"),
@@ -20,6 +24,6 @@ namespace StartProject.Entity
           StringLength(50, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
         public string description { get; set; }
 
-        public List<Employee> Employee { get; set; }
+        public  List<Employee> Employee { get; set; }
     }
 }

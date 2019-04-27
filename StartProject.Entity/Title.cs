@@ -12,6 +12,10 @@ namespace StartProject.Entity
     [Table("Titles")]
     public class Title
     {
+        public Title()
+        {
+            Employees = new List<Employee>();
+        }
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 

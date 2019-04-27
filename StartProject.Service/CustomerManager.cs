@@ -1,4 +1,5 @@
 ﻿using StartProject.Entity;
+using StartProject.Repository.EntityFramework;
 using StartProject.Service.Abstract;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,6 @@ namespace StartProject.Service
 {
     public class CustomerManager:ManagerBase<Customer>
     {
-       
+        
     }
 }

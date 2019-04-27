@@ -52,11 +52,15 @@ namespace StartProject.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-
-            manager.Update(_object);
-
-            return Ok();
+            Departmant departmant2 = manager.Find(x => x.ID == _object.ID);
+            if (departmant2!=null)
+            {
+                departmant2.name = _object.name;
+                departmant2.description = _object.description;
+                manager.Update(_object);
+                return Ok();
+            }
+            return BadRequest();
         }
 
         public IHttpActionResult DeleteProject(int id)

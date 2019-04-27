@@ -40,8 +40,8 @@ namespace StartProject.Entity
 
         [StringLength(30), ScaffoldColumn(false)]
         public string profileImageFilename { get; set; }
-
-
-        public Customer Customer { get; set; }
+        
+        public int? CustomerID { get; set; }
+        public  Customer Customer { get; set; }
     }
 }

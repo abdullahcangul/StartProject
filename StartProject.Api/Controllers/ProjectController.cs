@@ -48,21 +48,24 @@ namespace StartProject.Api.Controllers
             return CreatedAtRoute("DefaultApi", new { id = project.ID }, project);
         }
 
-        public IHttpActionResult PutProject(int id, Project project)
+        public IHttpActionResult PutProject( Project project)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+           Project project2=projectManager.Find(x => x.ID == project.ID);
 
-            if (id != project.ID)
+            if (project2 != null)
             {
-                return BadRequest();
+                project2.name = project.name;
+                project2.description = project.description;
+                projectManager.Update(project2);
+                return Ok();
             }
 
-            projectManager.Update(project);
-
-            return Ok();
+            return BadRequest();
+            
         }
 
         public IHttpActionResult DeleteProject(int id)

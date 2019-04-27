@@ -53,10 +53,20 @@ namespace StartProject.Api.Controllers
                 return BadRequest(ModelState);
             }
 
+            CustomerEmployee customerEmployee = manager.Find(x => x.ID == _object.ID);
+            if (customerEmployee != null)
+            {
+                customerEmployee.name=_object.name;
+                customerEmployee.email=_object.email;
+                customerEmployee.phone=_object.phone;
+                customerEmployee.surname=_object.surname;
+                manager.Update(_object);
 
-            manager.Update(_object);
+                return Ok();
+            }
 
-            return Ok();
+            return NotFound();
+            
         }
 
         public IHttpActionResult DeleteProject(int id)

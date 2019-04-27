@@ -13,14 +13,14 @@ namespace StartProject.Repository.EntityFramework
     {
         private DbSet<T> _objectSet;
 
-        public Repository()
+        public  Repository()
         {
-            _objectSet = context.Set<T>();
+            _objectSet =  context.Set<T>();
         }
-        
-        public List<T> List()
+     
+        public   List<T> List()
         {
-            return _objectSet.ToList();
+           return  _objectSet.ToList();
         }
 
         public IQueryable<T> ListQueryable()
@@ -89,5 +89,6 @@ namespace StartProject.Repository.EntityFramework
             return _objectSet.FirstOrDefault(where);
         }
        
+        
     }
 }

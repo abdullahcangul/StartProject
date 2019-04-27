@@ -1,4 +1,5 @@
-﻿using StartProject.Entity;
+﻿using StartProject.Api.util;
+using StartProject.Entity;
 using StartProject.Service;
 using System;
 using System.Collections.Generic;
@@ -39,9 +40,25 @@ namespace StartProject.Api.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+              //  return BadRequest(ModelState);
             }
-
+            if (employee.profileImageFilename == null)
+            {
+                employee.profileImageFilename = "bos.png";
+            }
+            string deger = new ImageHelper().add(employee.FileName, Convert.FromBase64String(employee.fileBase64String), "");
+            if (deger == "uzanti")
+            {
+                return BadRequest("Lütfen .jpg veya .png Yükleyiniz");
+            }
+            else if (deger == "boyut")
+            {
+                return BadRequest("Resim boyutu  büyük");
+            }
+            else
+            {
+                employee.profileImageFilename = deger;
+            }
             employeeManager.Insert(employee);
 
             return CreatedAtRoute("DefaultApi", new { id = employee.ID }, employee);
@@ -58,21 +75,46 @@ namespace StartProject.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
-            
-                Employee employee2 = employeeManager.Find(x => x.ID == employee.ID);
-                employee2.name = employee.name;
-                employee2.email = employee.email;
-                employee2.isActive = employee.isActive;
-                employee2.surname = employee.surname;
-                employee2.password = employee.password;
 
-                employeeManager.Update(employee);
-                return Ok(employee);
+            Employee employee2 = employeeManager.Find(x => x.ID == employee.ID);
+            if (employee.FileName != null)
+            {
+               
+                string deger = new ImageHelper().add(employee.FileName, Convert.FromBase64String(employee.fileBase64String), "");
+                if (deger == "uzanti")
+                {
+                    return BadRequest("Lütfen .jpg veya .png Yükleyiniz");
+                }
+                else if (deger == "boyut")
+                {
+                    return BadRequest("Resim boyutu  büyük");
+                }
+                else
+                {
+                    employee.profileImageFilename = deger;
+                }
+            }
+            if (employee.profileImageFilename != null)
+            {
+                // yeni resim başarılı eklendiyse
+                if (employee2.profileImageFilename != "bos.png")
+                {
+                    // eski resmi sil
+                    new ImageHelper().delete(employee.profileImageFilename);
+                }
+
+                // yeni resmi at
+                employee2.profileImageFilename = employee.profileImageFilename;
+                employee.name = employee.name;
+                employee.email = employee.email;
+                employee.isActive = employee.isActive;
+                employee.surname = employee.surname;
+                employee.password = employee.password;
+            }
+            employeeManager.Update(employee);
+            return Ok(employee);
            
-            
         }
-
-       
 
         public IHttpActionResult DeleteEmployee(int id)
         {
@@ -81,9 +123,11 @@ namespace StartProject.Api.Controllers
             {
                 return NotFound();
             }
+            new ImageHelper().delete(employee.profileImageFilename);
 
             employeeManager.Delete(employee);
             return Ok(employee);
         }
+        
     }
 }

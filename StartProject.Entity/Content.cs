@@ -22,7 +22,9 @@ namespace StartProject.Entity
 
         public bool isCustomer { get; set; }
 
-        
-        public Process Process { get; set; }
+
+        public int? ProcessID { get; set; }
+
+        public  Process Process { get; set; }
     }
 }

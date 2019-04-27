@@ -27,9 +27,9 @@ namespace StartProject.Service.Abstract
             return repo.Insert(obj);
         }
 
-        public virtual List<T> List()
+        public  virtual List<T> List()
         {
-            return repo.List();
+            return  repo.List();
         }
 
         public virtual List<T> List(Expression<Func<T, bool>> where)

@@ -16,6 +16,7 @@ namespace StartProject.Api.Controllers
         public IHttpActionResult GetCustomers()
         {
             List<Customer> customers = customerManager.List();
+            
            
 
             if (customers.Count>0)

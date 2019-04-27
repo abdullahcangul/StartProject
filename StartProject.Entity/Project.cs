@@ -23,9 +23,13 @@ StringLength(500, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
         public string description { get; set; }
       
         
-        public List<Process> Processes { get; set; }
-       
-        public Customer Customer { get; set; }
-        public Employee Employee { get; set; }
+        public virtual List<Process> Processes { get; set; }
+    
+        public int? CustomerID { get; set; }
+     
+        public int? EmployeeID { get; set; }
+
+        public  Customer Customer { get; set; }
+        public  Employee Employee { get; set; }
     }
 }
