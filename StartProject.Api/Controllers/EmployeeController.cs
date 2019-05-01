@@ -53,7 +53,7 @@ namespace StartProject.Api.Controllers
         {
             if (!ModelState.IsValid)
             {
-              //  return BadRequest(ModelState);
+                return BadRequest(ModelState);
             }
             if (employee == null)
             {
@@ -83,10 +83,6 @@ namespace StartProject.Api.Controllers
 
         public IHttpActionResult PutEmployee(Employee employee)
         {
-            ModelState.Remove("createdAt");
-            ModelState.Remove("createdBy");
-            ModelState.Remove("updatedAt");
-            ModelState.Remove("updatedBy");
 
             if (!ModelState.IsValid)
             {
@@ -114,7 +110,7 @@ namespace StartProject.Api.Controllers
             if (employee.profileImageFilename != null)
             {
                 // yeni resim başarılı eklendiyse
-                if (employee2.profileImageFilename != "bos.png")
+                if (employee2.profileImageFilename != "user_boy.png")
                 {
                     // eski resmi sil
                     new ImageHelper().delete(employee.profileImageFilename);
@@ -145,6 +141,32 @@ namespace StartProject.Api.Controllers
             employeeManager.Delete(employee);
             return Ok(employee);
         }
-        
+
+        //admin ve aktif pasif yapma
+        [HttpGet]
+        [Route("api/employee/aktifet/{id}")]
+        public IHttpActionResult AktifEt(int id)
+        {
+            EmployeeManager employeeManager = new EmployeeManager();
+            if (employeeManager.List(x=>x.isActive==true).Count() > 0)
+            {
+                Employee employee = employeeManager.Find(x => x.ID == id); 
+                employee.isActive = Convert.ToBoolean(employee.isActive) ? false : true;
+                employeeManager.Update(employee);
+                if (employee.isActive == true)
+                {
+                   return Ok(true);
+                }
+                else
+                {
+                    return Ok(false);
+                }
+            }
+            else
+            {
+              return  BadRequest("En az Bir yetkili hesap olmalı");
+            }
+        }
+
     }
 }

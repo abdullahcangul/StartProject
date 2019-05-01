@@ -33,6 +33,17 @@ namespace StartProject.Api.Controllers
             }
             return NotFound();
         }
+        //process in contentlerini döner
+        [Route("api/content/process/{id}")]
+        public IHttpActionResult GetContentProject(int id)
+        {
+           List<Content> _object = manager.List(x => x.ProcessID == id);
+            if (_object != null)
+            {
+                return Ok(_object);
+            }
+            return NotFound();
+        }
 
         public IHttpActionResult PostProject(Content _object)
         {
