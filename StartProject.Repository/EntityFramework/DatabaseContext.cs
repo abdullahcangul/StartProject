@@ -12,8 +12,8 @@ namespace StartProject.Repository.EntityFramework
     {
         public DatabaseContext() : base("StartProjectDb")
         {
-            //this.Configuration.LazyLoadingEnabled = true;
-            this.Configuration.LazyLoadingEnabled = false;
+            
+           // this.Configuration.LazyLoadingEnabled = false;
             Database.SetInitializer(new MyInitializer());
         }
         public virtual DbSet<Title> Titles { get; set; }

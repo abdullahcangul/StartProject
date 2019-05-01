@@ -11,6 +11,7 @@ using System.Web.Http.ModelBinding;
 
 namespace StartProject.Api.Controllers
 {
+    //[Authorize]
     public class EmployeeController : ApiController
     {
         private EmployeeManager employeeManager = new EmployeeManager();
@@ -53,6 +54,10 @@ namespace StartProject.Api.Controllers
             if (!ModelState.IsValid)
             {
               //  return BadRequest(ModelState);
+            }
+            if (employee == null)
+            {
+                return BadRequest();
             }
             if (employee.profileImageFilename == null)
             {

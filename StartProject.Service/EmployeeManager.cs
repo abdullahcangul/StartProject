@@ -13,7 +13,7 @@ namespace StartProject.Service
 {
     public class EmployeeManager:ManagerBase<Employee>
     {
-      
+     
 
     }
 }

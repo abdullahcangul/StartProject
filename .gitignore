@@ -259,3 +259,5 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/StartProject.Api/Files/c1a5eba6-32ed-44a3-9cf1-f06ceb8077a0.jpg
+/StartProject.Api/Files/user_boy.png

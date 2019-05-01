@@ -13,7 +13,8 @@ namespace StartProject.Api
             // Web API configuration and services
 
             // Web API routes
-            config.MapHttpAttributeRoutes(); 
+            config.MapHttpAttributeRoutes();
+            //config.EnableCors();
             //http://localhost:4200
             var cors = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(cors);

@@ -24,9 +24,21 @@ namespace StartProject.Api.Controllers
             return NotFound();
         }
 
+
         public IHttpActionResult GetProcess(int id)
         {
             Process process = processManager.Find(x => x.ID == id);
+            if (process != null)
+            {
+                return Ok(process);
+            }
+            return NotFound();
+        }
+        //Projenin processlerini döner
+        [Route("api/process/projects/{id}")]
+        public IHttpActionResult GetProcessOfProject(int id)
+        {
+            List<Process> process = processManager.List(x => x.ProjectID == id);
             if (process != null)
             {
                 return Ok(process);
