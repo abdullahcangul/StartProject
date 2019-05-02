@@ -21,7 +21,7 @@ namespace StartProject.Entity
             StringLength(50, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
         public string name { get; set; }
         [DisplayName("Açıklama"), Column("description"),
-          StringLength(50, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
+          StringLength(500, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
         public string description { get; set; }
 
         public  List<Employee> Employee { get; set; }

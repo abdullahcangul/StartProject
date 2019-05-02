@@ -54,9 +54,11 @@ namespace StartProject.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-
+            Title title=manager.Find(x => x.ID == _object.ID);
+            title.name = _object.name;
+            title.description = _object.description;
             manager.Update(_object);
-
+            
             return Ok();
         }
 

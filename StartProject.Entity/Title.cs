@@ -23,7 +23,7 @@ namespace StartProject.Entity
     StringLength(25, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
         public string name { get; set; }
         [DisplayName("Açıklama"),
-StringLength(25, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
+StringLength(500, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
         public string description { get; set; }
 
         

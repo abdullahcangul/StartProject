@@ -8,8 +8,5 @@ using System.Threading.Tasks;
 
 namespace StartProject.Service
 {
-    public class CustomerEmployeeManager: ManagerBase<CustomerEmployee>
-    {
-
-    }
+   
 }

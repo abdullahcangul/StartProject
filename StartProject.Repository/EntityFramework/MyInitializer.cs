@@ -101,32 +101,7 @@ namespace StartProject.Repository.EntityFramework
             }
             context.SaveChanges();
 
-            //List<Authority> authoritys = new List<Authority>()
-            //{
-            //    { new Authority(){ name="admin" ,User= context.Users.ToList()[1],} },
-            //    { new Authority(){ name="employe",User= context.Users.ToList()[2] } },
-            //    { new Authority(){ name="musteri" ,User= context.Users.ToList()[3]} },
-            //    { new Authority(){ name="standart",User= context.Users.ToList()[4] } },
-            //};
-            //context.Authorities.AddRange(authoritys);
-            //context.SaveChanges();
-
-            //adding Customer
-            for (int i = 0; i < 3; i++)
-            {
-
-                CustomerEmployee customerEmployee = new CustomerEmployee()
-                {
-                    name = FakeData.NameData.GetFirstName(),
-                    email = FakeData.NetworkData.GetEmail(),
-                    surname = FakeData.NameData.GetSurname(),
-                    phone = "05423310317",
-                    password="12345",
-                };
-
-                context.CustomerEmployees.Add(customerEmployee);
-            }
-            context.SaveChanges();
+     
             //adding Customer
             for (int i = 0; i < 3; i++)
             {
@@ -139,7 +114,6 @@ namespace StartProject.Repository.EntityFramework
                     description = FakeData.TextData.GetSentences(FakeData.NumberData.GetNumber(5, 7)),
                     url=FakeData.NetworkData.GetDomain(),
                     Employee = context.Employees.ToList()[i],
-                    CustomerEmployees=context.CustomerEmployees.ToList()
 
                 };
                 

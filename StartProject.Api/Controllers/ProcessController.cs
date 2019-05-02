@@ -58,19 +58,20 @@ namespace StartProject.Api.Controllers
             return CreatedAtRoute("DefaultApi", new { id = process.ID }, process);
         }
 
-        public IHttpActionResult PutProcess(int id, Process process)
+        public IHttpActionResult PutProcess( Process process)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != process.ID)
-            {
-                return BadRequest();
-            }
 
-            processManager.Update(process);
+            Process process1 = processManager.Find(x => x.ID == process.ID);
+            process1.priority = process.priority;
+            process1.status = process.status;
+            process1.projectedFinishDate = process.projectedFinishDate;
+            
+            processManager.Update(process1);
 
             return Ok();
         }

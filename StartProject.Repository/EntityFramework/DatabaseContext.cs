@@ -23,14 +23,9 @@ namespace StartProject.Repository.EntityFramework
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Content> Contents { get; set; }
         public virtual DbSet<Departmant> Departmants { get; set; }
-        public virtual DbSet<CustomerEmployee> CustomerEmployees { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Customer>()
-                .HasMany(e => e.CustomerEmployees)
-                .WithOptional(e => e.Customer)
-                .HasForeignKey(e => e.CustomerID);
 
             modelBuilder.Entity<Customer>()
                 .HasMany(e => e.Projects)

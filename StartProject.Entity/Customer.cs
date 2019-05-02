@@ -14,7 +14,6 @@ namespace StartProject.Entity
     {
         public Customer()
         {
-            CustomerEmployees = new List<CustomerEmployee>();
             Projects = new List<Project>();
         }
         
@@ -44,8 +43,7 @@ namespace StartProject.Entity
         
         public int? EmployeeID { get; set; }
         public  Employee Employee { get; set; }
-
-        public  List<CustomerEmployee> CustomerEmployees { get; set; }
+        
         public  List<Project> Projects { get; set; }
     }
 }

@@ -51,7 +51,6 @@
     <Compile Include="BaseEntity.cs" />
     <Compile Include="Content.cs" />
     <Compile Include="Customer.cs" />
-    <Compile Include="CustomerEmployee.cs" />
     <Compile Include="Departmant.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="Process.cs" />
