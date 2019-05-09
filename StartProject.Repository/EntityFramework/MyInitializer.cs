@@ -113,6 +113,7 @@ namespace StartProject.Repository.EntityFramework
                     competnent = "süper",
                     description = FakeData.TextData.GetSentences(FakeData.NumberData.GetNumber(5, 7)),
                     url=FakeData.NetworkData.GetDomain(),
+                    password = "123",
                     Employee = context.Employees.ToList()[i],
 
                 };
@@ -127,6 +128,7 @@ namespace StartProject.Repository.EntityFramework
                 description = FakeData.TextData.GetSentences(FakeData.NumberData.GetNumber(5, 5)),
                 url = FakeData.NetworkData.GetDomain(),
                 email = FakeData.NetworkData.GetEmail(),
+                password = "123",
                 
                 Employee = context.Employees.SingleOrDefault(x=>x.email== "hamzatas@gmail.com"),
             };

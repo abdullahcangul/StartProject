@@ -164,7 +164,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -185,9 +187,9 @@
     </Compile>
     <Compile Include="Models\ImageDto.cs" />
     <Compile Include="Models\InformationModel.cs" />
-    <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Models\UserInfo.cs" />
     <Compile Include="UserInfoMethod.cs" />
     <Compile Include="util\ImageHelper.cs" />
   </ItemGroup>

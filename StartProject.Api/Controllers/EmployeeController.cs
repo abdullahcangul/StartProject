@@ -1,5 +1,6 @@
 ﻿using StartProject.Api.util;
 using StartProject.Entity;
+using StartProject.Entity.ErrorModel;
 using StartProject.Service;
 using System;
 using System.Collections.Generic;
@@ -61,7 +62,7 @@ namespace StartProject.Api.Controllers
             }
             if (employee.profileImageFilename == null)
             {
-                employee.profileImageFilename = "bos.png";
+                employee.profileImageFilename = "user_boy.png";
             }
             string deger = new ImageHelper().add(employee.FileName, Convert.FromBase64String(employee.fileBase64String), "");
             if (deger == "uzanti")
@@ -76,9 +77,12 @@ namespace StartProject.Api.Controllers
             {
                 employee.profileImageFilename = deger;
             }
-            employeeManager.Insert(employee);
-
-            return CreatedAtRoute("DefaultApi", new { id = employee.ID }, employee);
+            ServiceResult<Employee> serviceResult= employeeManager.EmployeeAdd(employee);
+            if (serviceResult.Errors.Count>0)
+            {
+                return BadRequest(serviceResult.Errors[0]);
+            }
+            return CreatedAtRoute("DefaultApi", new { id = employee.ID }, serviceResult.result);
         }
 
         public IHttpActionResult PutEmployee(Employee employee)

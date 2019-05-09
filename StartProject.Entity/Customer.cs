@@ -29,6 +29,11 @@ namespace StartProject.Entity
             StringLength(70, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
         public string email { get; set; }
 
+        [DisplayName("Şifre"),
+            Required(ErrorMessage = "{0} alanı gereklidir."),
+            StringLength(25, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
+        public string password { get; set; }
+
         [DisplayName("Yetkili"), 
             StringLength(50, ErrorMessage = "{0} alanı max. {1} karakter olmalıdır.")]
         public string competnent { get; set; }

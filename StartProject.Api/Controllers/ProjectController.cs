@@ -25,7 +25,17 @@ namespace StartProject.Api.Controllers
             }
             return NotFound();
         }
-
+        [Route("api/projects/{id}")]
+        public IHttpActionResult GetProjects(int id)
+        {
+            List<Project> projects = projectManager.List(x => x.CustomerID == id);
+            if (projects != null)
+            {
+                return Ok(projects);
+            }
+            return NotFound();
+        }
+        
         public IHttpActionResult GetProject(int id)
         {
             Project project = projectManager.Find(x => x.ID == id);

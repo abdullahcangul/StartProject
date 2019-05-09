@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace StartProject.Api.Controllers
 {
-   // [Authorize]
+    [Authorize]
     public class AuthorizationController : ApiController
     {
 

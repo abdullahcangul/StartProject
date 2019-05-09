@@ -1,9 +1,8 @@
-﻿using StartProject.Api.Models;
+﻿
+
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Web;
 
 namespace StartProject.Api
 {
@@ -12,6 +11,8 @@ namespace StartProject.Api
         internal static UserInfo CurrentUser()
         {
             var claims = ClaimsPrincipal.Current.Identities.First().Claims;
+
+
             var result = new UserInfo()
             {
                 userName = claims.First(x => x.Type == "sub").Value,

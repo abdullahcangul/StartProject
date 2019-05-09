@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="Abstract\ManagerBase.cs" />
     <Compile Include="ContentManager.cs" />
-    <Compile Include="CustomerEmployeeManager.cs" />
     <Compile Include="CustomerManager.cs" />
     <Compile Include="DepartmantManager.cs" />
     <Compile Include="EmployeeManager.cs" />

@@ -53,6 +53,7 @@
     <Compile Include="Customer.cs" />
     <Compile Include="Departmant.cs" />
     <Compile Include="Employee.cs" />
+    <Compile Include="ErrorModel\ServiceResult.cs" />
     <Compile Include="Process.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

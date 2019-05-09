@@ -1,4 +1,5 @@
 ﻿using StartProject.Entity;
+using StartProject.Entity.ErrorModel;
 using StartProject.Service;
 using System;
 using System.Collections.Generic;
@@ -17,14 +18,13 @@ namespace StartProject.Api.Controllers
         {
             List<Customer> customers = customerManager.List();
             
-           
-
             if (customers.Count>0)
             {
                 return Ok(customers);
             }
             return NotFound();
         }
+
 
         public IHttpActionResult GetCustomer(int id)
         {
@@ -44,8 +44,13 @@ namespace StartProject.Api.Controllers
             }
 
             customerManager.Insert(customer);
+            ServiceResult<Customer> serviceResult = customerManager.CustomerAdd(customer);
+            if (serviceResult.Errors.Count > 0)
+            {
+                return BadRequest(serviceResult.Errors[0]);
+            }
 
-            return CreatedAtRoute("DefaultApi", new { id = customer.ID }, customer);
+            return CreatedAtRoute("DefaultApi", new { id = customer.ID }, serviceResult.result);
         }
 
         public IHttpActionResult PutCustomer( Customer customer)
@@ -60,6 +65,7 @@ namespace StartProject.Api.Controllers
             customer2.email = customer.email;
             customer2.description = customer.description;
             customer2.competnent = customer.competnent;
+            customer2.password = customer.password;
             
            
             customerManager.Update(customer2);
