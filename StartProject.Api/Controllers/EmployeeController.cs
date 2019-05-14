@@ -94,6 +94,10 @@ namespace StartProject.Api.Controllers
             }
 
             Employee employee2 = employeeManager.Find(x => x.ID == employee.ID);
+            if (employee2==null)
+            {
+                return NotFound();
+            }
             if (employee.FileName != null)
             {
                
@@ -122,13 +126,14 @@ namespace StartProject.Api.Controllers
 
                 // yeni resmi at
                 employee2.profileImageFilename = employee.profileImageFilename;
-                employee.name = employee.name;
-                employee.email = employee.email;
-                employee.isActive = employee.isActive;
-                employee.surname = employee.surname;
-                employee.password = employee.password;
+                employee2.name = employee.name;
+                employee2.email = employee.email;
+                employee2.surname = employee.surname;
+                employee2.password = employee.password;
+                employee2.DepartmantID = employee.DepartmantID;
+                employee2.TitleID = employee.TitleID;
             }
-            employeeManager.Update(employee);
+            employeeManager.Update(employee2);
             return Ok(employee);
            
         }
@@ -149,28 +154,66 @@ namespace StartProject.Api.Controllers
         //admin ve aktif pasif yapma
         [HttpGet]
         [Route("api/employee/aktifet/{id}")]
-        public IHttpActionResult AktifEt(int id)
+        public IHttpActionResult AktiflikKontrol(int id)
         {
             EmployeeManager employeeManager = new EmployeeManager();
-            if (employeeManager.List(x=>x.isActive==true).Count() > 0)
+            ServiceResult<Employee> resultService= employeeManager.AktiflikKontrol(id);
+            if (resultService.Errors.Count()>0)
             {
-                Employee employee = employeeManager.Find(x => x.ID == id); 
-                employee.isActive = Convert.ToBoolean(employee.isActive) ? false : true;
-                employeeManager.Update(employee);
-                if (employee.isActive == true)
-                {
-                   return Ok(true);
-                }
-                else
-                {
-                    return Ok(false);
-                }
+                return BadRequest(resultService.Errors[0]);
+            }
+            if (resultService.result.isActive == true)
+            {
+                return Ok(true);
             }
             else
             {
-              return  BadRequest("En az Bir yetkili hesap olmalı");
+               return Ok(false);
             }
+           
+        }
+        //ANDROİD
+        [AllowAnonymous]
+        [Route("api/login")]
+        public IHttpActionResult PostLogin([FromBody]Login login)
+        {
+            TitleManager titleManager = new TitleManager();
+            DepartmantManager departmantManager = new DepartmantManager();
+            ProjectManager projectManager = new ProjectManager();
+            ProcessManager processManager = new ProcessManager();
+            ContentManager contentManager = new ContentManager();
+            CustomerManager customerManager = new CustomerManager();
+
+            Employee employee = employeeManager.Find(e => e.email == login.email && e.password == login.password);
+            if (employee != null)
+            {
+                Title title = titleManager.Find(x => x.ID == employee.TitleID);
+                employee.Title = title;
+                Departmant departmant = departmantManager.Find(x => x.ID == employee.DepartmantID);
+                employee.Departmant = departmant;
+                List<Process> processes = processManager.List(x => x.EmployeeID == employee.ID);
+                foreach (Process item in processes)
+                {
+                    Project project = projectManager.Find(x => x.ID == item.ProjectID);
+                    Customer customer = customerManager.Find(c => c.ID == project.CustomerID);
+                    project.Customer = customer;
+                    item.Project = project;
+                    List<Content> contents = contentManager.List(x => x.ProcessID == item.ID);
+                    item.Contents = contents;
+                }
+                employee.Processes = processes;
+                return Ok(employee);
+            }
+            return NotFound();
         }
 
+
+
     }
+    public class Login
+    {
+        public string email { get; set; }
+        public string password { get; set; }
+    }
+
 }

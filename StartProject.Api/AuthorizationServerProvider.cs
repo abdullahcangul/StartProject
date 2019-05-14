@@ -24,19 +24,27 @@ namespace StartProject.Api
             Customer customer = customerManager.Find(x => x.email == context.UserName && x.password == context.Password);
 
 
-
+            
             if (employee!=null)
             {
-                TitleManager titleManager = new TitleManager();
+                if (employee.isActive == false)
+                {
+                    context.SetError("Oturum Hatası", "Kullanıcı Pasif");
+                }
+                else
+                {
+                    TitleManager titleManager = new TitleManager();
 
-                Title title = titleManager.Find(x => x.ID == employee.TitleID);
-                var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-                identity.AddClaim(new Claim("sub", employee.email));
-                identity.AddClaim(new Claim("role", "calisan"));
-                identity.AddClaim(new Claim("clientId",employee.ID.ToString()));
+                    Title title = titleManager.Find(x => x.ID == employee.TitleID);
+                    var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+                    identity.AddClaim(new Claim("sub", employee.email));
+                    identity.AddClaim(new Claim("role", "calisan"));
+                    identity.AddClaim(new Claim("clientId", employee.ID.ToString()));
 
 
-                context.Validated(identity);
+                    context.Validated(identity);
+                }
+
                 
             }
             else if (customer!=null)

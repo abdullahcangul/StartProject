@@ -13,6 +13,7 @@ namespace StartProject.Service
     public class CustomerManager:ManagerBase<Customer>
     {
         private Repository<Customer> repo = new Repository<Customer>();
+        private ServiceResult<Customer> resultService = new ServiceResult<Customer>();
 
         public ServiceResult<Customer> CustomerAdd(Customer customer)
         {
@@ -29,6 +30,24 @@ namespace StartProject.Service
                 return resultService;
             }
             resultService.Errors.Add("bir hata olustu");
+            return resultService;
+        }
+        public ServiceResult<Customer> DeleteCustomer(Customer obj)
+        {
+            ProjectManager projectManager = new ProjectManager();
+            Customer customer = repo.Find(x=>x.ID== obj.ID);
+            if (customer!=null)
+            {
+                if (projectManager.List(x=>x.CustomerID== obj.ID).Count()>0)
+                {
+                    resultService.Errors.Add("Müsteriye ait proje oldugundan silinmiyor");
+                    return resultService;
+                }
+                resultService.result = obj;
+                repo.Delete(customer);
+                return resultService;
+            }
+            resultService.Errors.Add("Müşteri bulunamadı");
             return resultService;
         }
     }

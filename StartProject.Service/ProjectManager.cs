@@ -1,4 +1,6 @@
 ﻿using StartProject.Entity;
+using StartProject.Entity.ErrorModel;
+using StartProject.Repository.EntityFramework;
 using StartProject.Service.Abstract;
 using System;
 using System.Collections.Generic;
@@ -10,5 +12,6 @@ namespace StartProject.Service
 {
     public class ProjectManager:ManagerBase<Project>
     {
+        
     }
 }

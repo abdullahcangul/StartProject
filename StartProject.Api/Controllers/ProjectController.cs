@@ -35,7 +35,7 @@ namespace StartProject.Api.Controllers
             }
             return NotFound();
         }
-        
+        [Route("api/project/{id}")]
         public IHttpActionResult GetProject(int id)
         {
             Project project = projectManager.Find(x => x.ID == id);
@@ -88,6 +88,19 @@ namespace StartProject.Api.Controllers
 
             projectManager.Delete(project);
             return Ok(project);
+        }
+        //android
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("Api/Project/getallprojectbycustomer/{id}")]
+        public IHttpActionResult GetProjectByCustomerId(int id)
+        {
+            List<Project> projects = projectManager.List(x => x.CustomerID == id);
+            if (projects != null)
+            {
+                return Ok(projects);
+            }
+            return NotFound();
         }
     }
 }

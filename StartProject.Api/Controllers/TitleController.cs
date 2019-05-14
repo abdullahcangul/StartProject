@@ -1,5 +1,6 @@
 ﻿
 using StartProject.Entity;
+using StartProject.Entity.ErrorModel;
 using StartProject.Service;
 using System;
 using System.Collections.Generic;
@@ -64,14 +65,16 @@ namespace StartProject.Api.Controllers
 
         public IHttpActionResult DeleteProject(int id)
         {
-            Title _object = manager.Find(x => x.ID == id);
-            if (_object == null)
-            {
-                return NotFound();
-            }
 
-            manager.Delete(_object);
-            return Ok(_object);
+            ServiceResult<Title> resultService = new ServiceResult<Title>();
+            resultService= manager.DeleteBy(id);
+            if (resultService.Errors.Count()>0)
+            {
+                
+                return BadRequest(resultService.Errors[0]);
+            }
+            
+            return Ok(resultService.result);
         }
     }
 }

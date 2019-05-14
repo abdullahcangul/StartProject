@@ -35,10 +35,10 @@ namespace StartProject.Api.Controllers
             return NotFound();
         }
         //Projenin processlerini döner
-        [Route("api/process/projects/{id}")]
+        [Route("api/process/projectss/{id}")]
         public IHttpActionResult GetProcessOfProject(int id)
         {
-            List<Process> process = processManager.List(x => x.ProjectID == id);
+            List<Process> process = processManager.List(x => x.ProjectID == id).OrderBy(x=>x.priority).ToList();
             if (process != null)
             {
                 return Ok(process);
@@ -67,6 +67,10 @@ namespace StartProject.Api.Controllers
 
 
             Process process1 = processManager.Find(x => x.ID == process.ID);
+            if (process1==null)
+            {
+                return NotFound();
+            }
             process1.priority = process.priority;
             process1.status = process.status;
             process1.projectedFinishDate = process.projectedFinishDate;
@@ -87,5 +91,53 @@ namespace StartProject.Api.Controllers
             processManager.Delete(process);
             return Ok(process);
         }
+
+        //android
+        [AllowAnonymous]
+        //employeenin processlerini döner
+        [Route("api/process/employee/{id}")]
+        public IHttpActionResult GetProcessOfProjectForAndroid(int id)
+        {
+            List<Process> process = processManager.List(x => x.EmployeeID == id);
+            if (process != null)
+            {
+                return Ok(process);
+            }
+            return NotFound();
+        }
+        [AllowAnonymous]
+        //Projenin processlerini döner
+        [Route("api/process/projects/{id}")]
+        public IHttpActionResult GetProcessOfEmployee(int id)
+        {
+            List<Process> process = processManager.List(x => x.ProjectID == id);
+            if (process != null)
+            {
+                return Ok(process);
+            }
+            return NotFound();
+        }
+        [AllowAnonymous]
+        public IHttpActionResult PutProcess(int id, Process process)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != process.ID)
+            {
+                return BadRequest();
+            }
+
+            Process process1 = processManager.Find(x => x.ID == id);
+            process1.priority = process.priority;
+            process1.status = process.status;
+            process.projectedFinishDate = process.projectedFinishDate;
+
+            processManager.Update(process1);
+            return Ok(process1);
+        }
+
     }
 }

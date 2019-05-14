@@ -42,8 +42,7 @@ namespace StartProject.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-            customerManager.Insert(customer);
+            
             ServiceResult<Customer> serviceResult = customerManager.CustomerAdd(customer);
             if (serviceResult.Errors.Count > 0)
             {
@@ -60,6 +59,10 @@ namespace StartProject.Api.Controllers
                 return BadRequest(ModelState);
             }
             Customer customer2=customerManager.Find(x => x.ID == customer.ID);
+            if (customer2==null)
+            {
+                return NotFound();
+            }
             customer2.name = customer.name;
             customer2.url = customer.url;
             customer2.email = customer.email;
@@ -80,7 +83,6 @@ namespace StartProject.Api.Controllers
             {
                 return NotFound();
             }
-
             customerManager.Delete(customer);
             return Ok(customer);
         }

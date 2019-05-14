@@ -63,7 +63,7 @@ namespace StartProject.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            
 
             manager.Update(_object);
 

@@ -15,10 +15,11 @@ namespace StartProject.Service
     public class EmployeeManager:ManagerBase<Employee>
     {
         private Repository<Employee> repo = new Repository<Employee>();
+        ServiceResult<Employee> resultService = new ServiceResult<Employee>();
 
         public ServiceResult<Employee> EmployeeAdd(Employee employee)
         {
-            ServiceResult<Employee> resultService = new ServiceResult<Employee>();
+            
             Employee employee2 = repo.Find(x => x.email == employee.email);
            if(employee2 != null)
             {
@@ -31,6 +32,25 @@ namespace StartProject.Service
                 return resultService;
             }
             resultService.Errors.Add("bir hata olustu");
+            return resultService;
+        }
+
+        public ServiceResult<Employee> AktiflikKontrol(int id)
+        {
+            //en son bir tane admin olsun
+            if (repo.List(x => x.isActive == true).Count() > 0)
+            {
+                Employee employee = repo.Find(x => x.ID == id);
+                employee.isActive = Convert.ToBoolean(employee.isActive) ? false : true;
+                if(repo.Update(employee)>0)
+                {
+                    resultService.result = employee;
+                    return resultService;
+                }
+                resultService.Errors.Add("Hata Olustu");
+                return resultService;
+            }
+            resultService.Errors.Add("En Az bir tane yetkili kullanıcı bulunmalı");
             return resultService;
         }
 

@@ -51,9 +51,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TitleManager.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Files\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\StartProject.Entity\StartProject.Entity.csproj">
       <Project>{927E03F2-C4DE-44B6-84A4-DDF58B600B91}</Project>
